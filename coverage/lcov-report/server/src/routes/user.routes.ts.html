@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>74/74</span>
+                <span class='fraction'>91/91</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>74/74</span>
+                <span class='fraction'>91/91</span>
             </div>
         
             
@@ -136,7 +136,41 @@
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -214,11 +248,12 @@ import userCreate from "../controllers/users/user.create";
 const userRouter = Router();
 import rateLimit from 'express-rate-limit';
 import { validateUser } from "../middleware/user.validator";
+import { userLogin } from "../controllers/users/user.login";
 &nbsp;
 &nbsp;
 &nbsp;
 // Rate limiter
-const signUpLimiter = rateLimit({
+const rateLimiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour window
     max: 10, // limit each IP to 5 sign-up requests per windowMs
     message: 'Too many accounts created from this IP, please try again after an hour',
@@ -229,56 +264,72 @@ const signUpLimiter = rateLimit({
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+//Added swagger documentation
 /**
- *  @swagger
- *  /users/signup:
- *      post:
- *          summary: User signup account
- *          description: This endpoint is used to create a new user account. The functionality is protected by a rate limiter and a validator. 
- *          tags:
- *              - User
- *          requestBody:
- *              required: true
- *              content:
- *                  application/json:
- *                      schema:
- *                          type: object
- *                          properties:
- *                              name:
- *                                  type: string
- *                                  description: User's name. Name must not include special characters or numbers
- *                              phone:
- *                                  type: string
- *                                  description: User's phone number. UK
- *                              email:
- *                                  type: string
- *                                  description: User's email address
- *                              password:
- *                                  type: string
- *                                  description: User's password. Must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number
- *          responses:
- *              422: 
- *                  description: Validation error
- *                  content: 
- *                      application/json:
- *                          schema:
- *                              type: object
- *                              properties:
- *                                  error:
- *                                      type: string    
- *          200:
- *              description: Successful response
- *              content:
- *                  application/json:
- *                      schema:
- *                          type: object
- *                          properties:
- *                              message:
- *                                  type: string
- *      
+ * @swagger
+ * /users/signup:
+ *   post:
+ *     summary: User signup account
+ *     description: This endpoint is used to create a new user account. The functionality is protected by a rate limiter and a validator. 
+ *     tags:
+ *       - User
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: User's name. Name must not include special characters or numbers
+ *               phone:
+ *                 type: string
+ *                 description: User's phone number. UK
+ *               email:
+ *                 type: string
+ *                 description: User's email address
+ *               password:
+ *                 type: string
+ *                 description: User's password. Must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number
+ *     responses:
+ *       422:
+ *         description: Validation failed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       field:
+ *                         type: string
+ *                         description: The name of the field that failed validation
+ *                       message:
+ *                         type: string
+ *                         description: The validation error message
+ *       200:
+ *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Success message
  */
-userRouter.post('/signup', signUpLimiter, validateUser, userCreate);
+userRouter.post('/signup', rateLimiter, validateUser, userCreate);
+&nbsp;
+&nbsp;
+// Login user
+userRouter.post('/login', rateLimiter, userLogin);
+&nbsp;
+&nbsp;
+&nbsp;
 &nbsp;
 &nbsp;
 &nbsp;
@@ -289,7 +340,7 @@ export default userRouter;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-04T10:45:07.712Z
+                at 2024-07-04T11:51:07.654Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

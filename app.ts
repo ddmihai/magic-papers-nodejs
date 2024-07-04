@@ -6,7 +6,10 @@ import winston from 'winston';
 import { loggerObj } from './app.helpers';
 import { engine } from 'express-handlebars';
 import path from 'path';
-
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import dotenv from 'dotenv';
+dotenv.config();
 
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
@@ -23,6 +26,23 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 
+
+
+// setting up express session
+app.set('trust proxy', 1);
+
+app.use(session({
+    secret: process.env.ENC_KEY as string,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
+    cookie: {
+        maxAge: 3600000,
+        httpOnly: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'lax' : 'none'
+    }
+}));
 
 
 
