@@ -14,6 +14,7 @@ const express_handlebars_1 = require("express-handlebars");
 const path_1 = __importDefault(require("path"));
 const express_session_1 = __importDefault(require("express-session"));
 const connect_mongo_1 = __importDefault(require("connect-mongo"));
+const genre_routes_1 = __importDefault(require("./src/routes/genre.routes"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
@@ -70,6 +71,7 @@ app.get("/", (req, res) => res.send("Hello, World!"));
 app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocs));
 // Routes usiages
 app.use("/users", user_routes_1.default);
+app.use("/genres", genre_routes_1.default);
 // 404
 app.use((req, res) => res.status(404).json({ message: "Not found" }));
 // error handler

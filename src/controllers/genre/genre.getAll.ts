@@ -4,7 +4,7 @@ import { logger } from '../../../app';
 
 const getALlGenre = async (req: Request, res: Response) => {
     try {
-        const genres = await Genre.find({});
+        const genres = await Genre.find();
         return res.status(200).json(genres);
     }
 
@@ -17,7 +17,6 @@ const getALlGenre = async (req: Request, res: Response) => {
         else {
             return res.status(400).json(error);
         }
-
     }
 };
 

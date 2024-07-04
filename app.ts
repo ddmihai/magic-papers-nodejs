@@ -8,6 +8,7 @@ import { engine } from 'express-handlebars';
 import path from 'path';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import genreRouter from "./src/routes/genre.routes";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -92,6 +93,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Routes usiages
 app.use("/users", userRouter);
+app.use("/genres", genreRouter);
 
 
 // 404

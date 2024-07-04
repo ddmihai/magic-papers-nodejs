@@ -8,25 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const genere_model_1 = __importDefault(require("../../models/genere.model"));
-const app_1 = require("../../../app");
-const getALlGenre = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.checkIfUserIsAdmin = void 0;
+const checkIfUserIsAdmin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const genres = yield genere_model_1.default.find();
-        return res.status(200).json(genres);
-    }
-    catch (error) {
-        app_1.logger.error('Error getting all genres', error);
-        if (error instanceof Error) {
-            return res.status(400).json({ message: error.message });
+        const user = req.session.user;
+        if (user && user.role === 'admin') {
+            next();
         }
         else {
-            return res.status(400).json(error);
+            return res.status(403).json({ message: "Unauthorized" });
         }
     }
+    catch (error) {
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
 });
-exports.default = getALlGenre;
+exports.checkIfUserIsAdmin = checkIfUserIsAdmin;

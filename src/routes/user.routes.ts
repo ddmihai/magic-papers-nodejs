@@ -86,7 +86,7 @@ userRouter.post('/signup', rateLimiter, validateUser, userCreate);
 // Login user
 /**
  * @swagger
- * /login:
+ * /users/login:
  *   post:
  *     summary: Logs in a user
  *     description: Authenticates a user with their email and password. If the credentials are valid and the user is not banned, a session is created.
@@ -162,7 +162,7 @@ userRouter.post('/login', rateLimiter, userLogin);
 // get all users
 /**
  * @swagger
- * /users:
+ * /users/get-all:
  *   get:
  *     summary: Retrieves all users
  *     description: Returns a list of all users in the system. This endpoint is intended for administrative use only.

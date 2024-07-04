@@ -14,19 +14,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const genere_model_1 = __importDefault(require("../../models/genere.model"));
 const app_1 = require("../../../app");
-const getALlGenre = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const createGenre = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const genres = yield genere_model_1.default.find();
-        return res.status(200).json(genres);
+        const { name, description } = req.body;
+        // validate 
+        if (!name || !description || name.trim() === '' || description.trim() === '') {
+            return res.status(400).json({ message: 'Name and description are required fields' });
+        }
+        // Check if already exist
+        const existingGenre = yield genere_model_1.default.findOne({ name: name.trim().toLowerCase() });
+        if (existingGenre) {
+            return res.status(400).json({ message: 'Genre already exists' });
+        }
+        ;
+        const genre = yield genere_model_1.default.create({ name, description });
+        res.status(201).json(genre);
     }
-    catch (error) {
-        app_1.logger.error('Error getting all genres', error);
-        if (error instanceof Error) {
-            return res.status(400).json({ message: error.message });
-        }
-        else {
-            return res.status(400).json(error);
-        }
+    catch (err) {
+        app_1.logger.error(err);
+        res.status(500).json({ message: err });
     }
 });
-exports.default = getALlGenre;
+exports.default = createGenre;
