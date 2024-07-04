@@ -16,6 +16,7 @@ const http_1 = __importDefault(require("http"));
 const app_1 = __importDefault(require("./app"));
 const connection_1 = __importDefault(require("./src/database/connection"));
 const port = process.env.PORT || 3000;
+const autoCreateAdmin_1 = __importDefault(require("./src/lib/autoCreateAdmin"));
 const startserver = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const server = http_1.default.createServer(app_1.default);
@@ -24,6 +25,7 @@ const startserver = () => __awaiter(void 0, void 0, void 0, function* () {
         });
         // Others functions here
         yield (0, connection_1.default)();
+        yield (0, autoCreateAdmin_1.default)();
     }
     catch (error) {
         console.error(error);

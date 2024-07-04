@@ -683,3 +683,8 @@
 {"level":"info","message":"GET /other"}
 {"level":"info","message":"GET /"}
 {"level":"info","message":"GET /other"}
+{"_message":"User validation failed","errors":{"phone":{"kind":"required","message":"Path `phone` is required.","name":"ValidatorError","path":"phone","properties":{"message":"Path `phone` is required.","path":"phone","type":"required"}}},"level":"error","message":"User validation failed: phone: Path `phone` is required.","name":"ValidationError"}
+{"_message":"User validation failed","errors":{"phone":{"kind":"required","message":"Path `phone` is required.","name":"ValidatorError","path":"phone","properties":{"message":"Path `phone` is required.","path":"phone","type":"required"}}},"level":"error","message":"User validation failed: phone: Path `phone` is required.","name":"ValidationError"}
+{"code":11000,"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"sasdaniel9@gmail.com\" }","index":0,"keyPattern":{"email":1},"keyValue":{"email":"sasdaniel9@gmail.com"}},"index":0,"keyPattern":{"email":1},"keyValue":{"email":"sasdaniel9@gmail.com"},"level":"error"}
+{"level":"info","message":"Admin created successfully"}
+{"code":11000,"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"sasdaniel9@gmail.com\" }","index":0,"keyPattern":{"email":1},"keyValue":{"email":"sasdaniel9@gmail.com"}},"index":0,"keyPattern":{"email":1},"keyValue":{"email":"sasdaniel9@gmail.com"},"level":"error"}

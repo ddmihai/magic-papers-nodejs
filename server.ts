@@ -1,8 +1,8 @@
 import http from 'http';
-import app, { logger } from './app';
+import app from './app';
 import connectDatabase from './src/database/connection';
 const port = process.env.PORT || 3000;
-
+import createAdmin from './src/lib/autoCreateAdmin';
 
 
 const startserver = async () => {
@@ -15,7 +15,7 @@ const startserver = async () => {
 
         // Others functions here
         await connectDatabase();
-
+        await createAdmin();
     }
     catch (error) {
         console.error(error);
