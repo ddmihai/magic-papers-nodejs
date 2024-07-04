@@ -10,6 +10,7 @@
     "baseUrl": "./"
   },
   "include": [
+    "server.ts",
     "src/**/*",
     "**/**/**/*.test.ts"
   ]
