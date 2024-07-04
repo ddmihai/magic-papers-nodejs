@@ -77,7 +77,136 @@ const rateLimiter = (0, express_rate_limit_1.default)({
  */
 userRouter.post('/signup', rateLimiter, user_validator_1.validateUser, user_create_1.default);
 // Login user
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Logs in a user
+ *     description: Authenticates a user with their email and password. If the credentials are valid and the user is not banned, a session is created.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: The user's email address.
+ *               password:
+ *                 type: string
+ *                 description: The user's password.
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Login successful"
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *       401:
+ *         description: Invalid credentials or account suspended
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid credentials"
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid credentials"
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The user's unique identifier.
+ *         name:
+ *           type: string
+ *           description: The user's full name.
+ *         email:
+ *           type: string
+ *           description: The user's email address.
+ *         role:
+ *           type: string
+ *           description: The user's role within the system.
+ */
 userRouter.post('/login', rateLimiter, user_login_1.userLogin);
 // get all users
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Retrieves all users
+ *     description: Returns a list of all users in the system. This endpoint is intended for administrative use only.
+ *     tags:
+ *       - User
+ *     responses:
+ *       200:
+ *         description: A list of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Internal server error"
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: The user's unique identifier.
+ *         name:
+ *           type: string
+ *           description: The user's full name.
+ *         email:
+ *           type: string
+ *           description: The user's email address.
+ *         role:
+ *           type: string
+ *           description: The user's role within the system.
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: The timestamp when the user was created.
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: The timestamp when the user was last updated.
+ *         avatar:
+ *           type: string
+ *           nullable: true
+ *           description: The URL to the user's profile picture.
+ */
 userRouter.get('/get-all', users_get_1.default);
 exports.default = userRouter;

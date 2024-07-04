@@ -689,3 +689,21 @@
 {"level":"info","message":"Admin created successfully"}
 {"code":11000,"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"sasdaniel9@gmail.com\" }","index":0,"keyPattern":{"email":1},"keyValue":{"email":"sasdaniel9@gmail.com"}},"index":0,"keyPattern":{"email":1},"keyValue":{"email":"sasdaniel9@gmail.com"},"level":"error"}
 {"level":"info","message":"POST /users/login"}
+{"level":"info","message":"GET /api-docs/"}
+{"level":"info","message":"GET /api-docs/swagger-ui.css"}
+{"level":"info","message":"GET /api-docs/swagger-ui-bundle.js"}
+{"level":"info","message":"GET /api-docs/swagger-ui-standalone-preset.js"}
+{"level":"info","message":"GET /api-docs/swagger-ui-init.js"}
+{"level":"info","message":"GET /api-docs/favicon-32x32.png"}
+{"level":"info","message":"GET /api-docs/"}
+{"level":"info","message":"GET /api-docs/swagger-ui.css"}
+{"level":"info","message":"GET /api-docs/swagger-ui-standalone-preset.js"}
+{"level":"info","message":"GET /api-docs/swagger-ui-bundle.js"}
+{"level":"info","message":"GET /api-docs/swagger-ui-init.js"}
+{"level":"info","message":"GET /api-docs/favicon-32x32.png"}
+{"level":"info","message":"GET /api-docs/"}
+{"level":"info","message":"GET /api-docs/swagger-ui.css"}
+{"level":"info","message":"GET /api-docs/swagger-ui-bundle.js"}
+{"level":"info","message":"GET /api-docs/swagger-ui-standalone-preset.js"}
+{"level":"info","message":"GET /api-docs/swagger-ui-init.js"}
+{"level":"info","message":"GET /api-docs/favicon-32x32.png"}
