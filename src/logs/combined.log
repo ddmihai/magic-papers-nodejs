@@ -671,3 +671,15 @@
 {"level":"info","message":"GET /other"}
 {"level":"info","message":"GET /"}
 {"level":"info","message":"GET /other"}
+{"level":"info","message":"GET /"}
+{"level":"info","message":"GET /other"}
+{"level":"info","message":"GET /favicon.ico"}
+{"level":"info","message":"GET /test"}
+{"level":"info","message":"POST /users/login"}
+{"level":"info","message":"POST /users/login"}
+{"level":"info","message":"POST /users/login"}
+{"level":"info","message":"POST /users/login"}
+{"level":"info","message":"GET /"}
+{"level":"info","message":"GET /other"}
+{"level":"info","message":"GET /"}
+{"level":"info","message":"GET /other"}

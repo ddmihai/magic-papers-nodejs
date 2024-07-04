@@ -5,7 +5,8 @@
   "scripts": {
     "test": "jest --watchAll",
     "dev": "nodemon server.ts",
-    "publish": "npx tsc && git add . && git commit -m 'QUICK PUSH FROM NPM' && git push origin main"
+    "publish": "npx tsc && git add . && git commit -m 'QUICK PUSH FROM NPM' && git push origin main",
+    "start": "node dist/server.js"
   },
   "author": "",
   "license": "ISC",
