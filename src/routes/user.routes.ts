@@ -4,6 +4,9 @@ const userRouter = Router();
 import rateLimit from 'express-rate-limit';
 import { validateUser } from "../middleware/user.validator";
 import { userLogin } from "../controllers/users/user.login";
+import getAllUsers from "../controllers/users/users.get";
+
+
 
 
 
@@ -83,6 +86,9 @@ userRouter.post('/signup', rateLimiter, validateUser, userCreate);
 // Login user
 userRouter.post('/login', rateLimiter, userLogin);
 
+
+// get all users
+userRouter.get('/get-all', getAllUsers);
 
 
 

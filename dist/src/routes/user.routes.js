@@ -9,6 +9,7 @@ const userRouter = (0, express_1.Router)();
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 const user_validator_1 = require("../middleware/user.validator");
 const user_login_1 = require("../controllers/users/user.login");
+const users_get_1 = __importDefault(require("../controllers/users/users.get"));
 // Rate limiter
 const rateLimiter = (0, express_rate_limit_1.default)({
     windowMs: 60 * 60 * 1000, // 1 hour window
@@ -77,4 +78,6 @@ const rateLimiter = (0, express_rate_limit_1.default)({
 userRouter.post('/signup', rateLimiter, user_validator_1.validateUser, user_create_1.default);
 // Login user
 userRouter.post('/login', rateLimiter, user_login_1.userLogin);
+// get all users
+userRouter.get('/get-all', users_get_1.default);
 exports.default = userRouter;

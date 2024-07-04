@@ -12,21 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const http_1 = __importDefault(require("http"));
-const app_1 = __importDefault(require("./app"));
-const connection_1 = __importDefault(require("./src/database/connection"));
-const port = process.env.PORT || 3000;
-const startserver = () => __awaiter(void 0, void 0, void 0, function* () {
+const user_model_1 = __importDefault(require("../../models/user.model"));
+const app_1 = require("../../../app");
+const getAllUsers = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const server = http_1.default.createServer(app_1.default);
-        server.listen(port, () => {
-            console.log(`Server is running on port ${port}`);
-        });
-        // Others functions here
-        yield (0, connection_1.default)();
+        const users = yield user_model_1.default.find();
+        return res.status(200).json(users);
     }
     catch (error) {
-        console.error(error);
+        app_1.logger.error(error);
+        if (error instanceof Error)
+            return res.status(500).json({ message: error.message });
     }
 });
-startserver();
+exports.default = getAllUsers;
