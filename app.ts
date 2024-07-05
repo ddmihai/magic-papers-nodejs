@@ -9,6 +9,7 @@ import path from 'path';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import genreRouter from "./src/routes/genre.routes";
+import bookRouter from "./src/routes/book.routes";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -24,8 +25,11 @@ const swaggerDocs = swaggerJsdoc(swaggerOptions);
 const app: Application = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
 app.use(helmet());
+app.use(cors({
+    origin: 'http://localhost:3333',
+    credentials: true
+}));
 
 
 
@@ -94,6 +98,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // Routes usiages
 app.use("/users", userRouter);
 app.use("/genres", genreRouter);
+app.use("/books", bookRouter);
 
 
 // 404

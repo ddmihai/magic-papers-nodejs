@@ -15,6 +15,7 @@ const path_1 = __importDefault(require("path"));
 const express_session_1 = __importDefault(require("express-session"));
 const connect_mongo_1 = __importDefault(require("connect-mongo"));
 const genre_routes_1 = __importDefault(require("./src/routes/genre.routes"));
+const book_routes_1 = __importDefault(require("./src/routes/book.routes"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
@@ -25,8 +26,11 @@ const swaggerDocs = (0, swagger_jsdoc_1.default)(swagger_1.swaggerOptions);
 const app = (0, express_1.default)();
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
-app.use((0, cors_1.default)());
 app.use((0, helmet_1.default)());
+app.use((0, cors_1.default)({
+    origin: 'http://localhost:3333',
+    credentials: true
+}));
 // setting up express session
 app.set('trust proxy', 1);
 app.use((0, express_session_1.default)({
@@ -72,6 +76,7 @@ app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.de
 // Routes usiages
 app.use("/users", user_routes_1.default);
 app.use("/genres", genre_routes_1.default);
+app.use("/books", book_routes_1.default);
 // 404
 app.use((req, res) => res.status(404).json({ message: "Not found" }));
 // error handler
