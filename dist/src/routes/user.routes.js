@@ -75,7 +75,7 @@ const rateLimiter = (0, express_rate_limit_1.default)({
  *                   type: string
  *                   description: Success message
  */
-userRouter.post('/signup', rateLimiter, user_validator_1.validateUser, user_create_1.default);
+userRouter.post('/signup', user_validator_1.validateUser, user_create_1.default);
 // Login user
 /**
  * @swagger

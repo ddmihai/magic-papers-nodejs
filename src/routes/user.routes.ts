@@ -80,7 +80,7 @@ const rateLimiter = rateLimit({
  *                   type: string
  *                   description: Success message
  */
-userRouter.post('/signup', rateLimiter, validateUser, userCreate);
+userRouter.post('/signup', validateUser, userCreate);
 
 
 // Login user
